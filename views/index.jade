@@ -2,4 +2,12 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Stay on top of your life!
+  div.container
+    div.item
+      span.desc Description
+      span.date Date
+      input(type="checkbox") 
+    button.new(onclick="newTask()") New
+  button.save Save
+
