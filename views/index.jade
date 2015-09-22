@@ -1,13 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Stay on top of your life!
-  div.container
-    div.item
-      span.desc Description
-      span.date Date
-      input(type="checkbox") 
-    button.new(onclick="newTask()") New
-  button.save Save
+  div.row
+    div.col-sm-4.col-sm-offset-4
+      div.row
+        div.col-sm-8.col-sm-offset-2
+          h1= title
+          p Stay on top of your life!
+  div.row
+    div.col-sm-4.col-sm-offset-4
+      div.container
+        div.item 
+        div.item
+          span.desc.header Description
+          span.date.header Due
+          button.new.btn.btn-default.btn-sm(onclick="newTask()") New
 

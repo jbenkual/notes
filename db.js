@@ -7,10 +7,7 @@ db.once('open', function (callback) {
   console.log("Connected to database");
 });
 
-var Task = mongoose.model('task', { name: String, dueDate: Date, createdAt: Date});
-
-// var tomorrow = new Date();
-// tomorrow.setDate(tomorrow.getDate() + 1);
+var Task = mongoose.model('task', { desc: String, dueDate: Date, createdAt: Date, completed: Boolean});
 
 exports.create = function(data) {
   var task1 = new Task({ 
@@ -22,23 +19,36 @@ exports.create = function(data) {
   return task1;
 };
 
-
-
-exports.save = function(object) {
-  if(!object.hasKey('save')) {
-    console.error("Tried to save a non-mongoose object");
+exports.save = function(object, cb) {
+  if(!object.hasOwnProperty('save')) {
+    console.error("Error: Tried to save a non-mongoose object");
     return;
   }
-  object.save(function (err) {
+  object.save(function (err, data) {
     if (err)  {
       console.error(err);
     }
     console.log("Data saved!");
+    cb(data);
   });
 };
 
-exports.load = function() {
-  var data = db.tasks.find();
-  console.log(data);
+exports.load = function(cb) {
+  var data = Task.find({}, function(err, tasks) {
+    cb(tasks);
+  });
+};
+
+exports.remove = function(id) {
+  console.log("Test");
+  Task.findById(id).remove( function(err, status) {
+    if(err) {
+      console.error(err);
+    }
+  });
+};
+
+exports.update = function(id, key, value, cb) {
+
 };
 
